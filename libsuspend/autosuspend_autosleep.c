@@ -30,7 +30,7 @@
 #define SYS_POWER_AUTOSLEEP "/sys/power/autosleep"
 
 static int autosleep_fd;
-static const char *sleep_state = "mem";
+static const char *sleep_state = "off"; //mem;
 static const char *on_state = "off";
 
 static int autosuspend_autosleep_enable(void)

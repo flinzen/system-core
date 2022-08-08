@@ -199,6 +199,72 @@ on init
     # enable armv8_deprecated instruction hooks
     write /proc/sys/abi/swp 1
 
+        #PH5
+    write /sys/class/gpio/export 229
+    write /sys/class/gpio/gpio229/direction "in"
+
+    #PC0
+    write /sys/class/gpio/export 64
+    write /sys/class/gpio/gpio64/direction "in"
+
+    #PC12
+    write /sys/class/gpio/export 76
+    write /sys/class/gpio/gpio76/direction "in"
+
+    #PC14
+    write /sys/class/gpio/export 78
+    write /sys/class/gpio/gpio78/direction "in"
+
+    #PC13
+    write /sys/class/gpio/export 77
+    write /sys/class/gpio/gpio77/direction "in"
+
+    #PC15
+    write /sys/class/gpio/export 79
+    write /sys/class/gpio/gpio79/direction "in"
+
+    #PC16
+    write /sys/class/gpio/export 80
+    write /sys/class/gpio/gpio80/direction "in"
+
+    #PC1
+    write /sys/class/gpio/export 65
+    write /sys/class/gpio/gpio65/direction "in"
+
+    #PC2
+    write /sys/class/gpio/export 66
+    write /sys/class/gpio/gpio66/direction "in"
+
+    #PH9
+    write /sys/class/gpio/export 233
+    write /sys/class/gpio/gpio233/direction "in"
+
+    #PH7
+    write /sys/class/gpio/export 231
+    write /sys/class/gpio/gpio231/direction "in"
+
+    #PC11
+    write /sys/class/gpio/export 75
+    write /sys/class/gpio/gpio75/direction "in"
+
+    #PC10
+    write /sys/class/gpio/export 74
+    write /sys/class/gpio/gpio74/direction "in"
+
+    #PC9
+    write /sys/class/gpio/export 73
+    write /sys/class/gpio/gpio73/direction "in"
+
+    #PH6
+    write /sys/class/gpio/export 230
+    write /sys/class/gpio/gpio230/direction "out"
+
+    #PH8
+    write /sys/class/gpio/export 232
+    write /sys/class/gpio/gpio232/direction "in"
+
+    chmod 0777 /dev/i2c-1
+
 # Healthd can trigger a full boot from charger mode by signaling this
 # property when the power button is held.
 on property:sys.boot_from_charger_mode=1
@@ -393,6 +459,7 @@ on post-fs-data
 
     # Check any timezone data in /data is newer than the copy in /system, delete if not.
     exec - system system -- /system/bin/tzdatacheck /system/usr/share/zoneinfo /data/misc/zoneinfo
+    write /sys/class/gpio/gpio230/value 1
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
@@ -491,6 +558,10 @@ on boot
     setprop net.tcp.default_init_rwnd 60
 
     class_start core
+
+    write /sys/class/gpio/gpio64/direction "out"
+    write /sys/class/gpio/gpio64/direction "in"
+
 
 on nonencrypted
     class_start main
